@@ -1,4 +1,4 @@
-## Tensorflow 2.1 for Pynq Z2 ( zynq 7000 xilinx SoC )
+# Tensorflow 2.1 for Pynq Z2 ( zynq 7000 xilinx SoC )
 The wheel has been produced cross compiling with different compiler's flags using the script provided by tensorflow for building it for rasberry since the official binaries does not work on the board.
 
 Below the part which i modified:
@@ -23,11 +23,11 @@ and modify the copt accordingly.
 
 
 
-# Set up Host and Build
+## Set up Host and Build
 you can follow the official guide on tensorflow: 
 [Build from source for the Raspberry Pi](https://www.tensorflow.org/install/source_rpi#python-3)
 
-# Set up Target 
+## Set up Target 
 The wheel has been produced for python3.5, therefore you have to install python3.5 on the target. 
 If you need a pynq enviroment in tensorflow you need to install pynq from scratch again, and it has been made available using pip:
 ```bash
@@ -35,7 +35,7 @@ sudo pip3.5 install pynq
 ```
 After you start the installation of pynq, go grab a coffe and do laundry. It takes a while.
 
-# Install 
+## Install 
 For installing the wheel, just copy it on the sd card and in the terminal write:
 ```bash
 sudo python3.5 install ./tensorflow-2.1.0-cp35-none-linux_armv7l.whl
