@@ -38,7 +38,7 @@ After you start the installation of pynq, go grab a coffe and do laundry. It tak
 ## Install 
 For installing the wheel, just copy it on the sd card and in the terminal write:
 ```bash
-sudo python3.5 install ./tensorflow-2.1.0-cp35-none-linux_armv7l.whl
+sudo pip.5 install ./tensorflow-2.1.0-cp35-none-linux_armv7l.whl
 ```
 It will also download and install all the depedacies, some of them have to be compiled on the field (such as scipy and h5py). It will take a while, go out and get drunk, hopefully when you will be back it should have finished.
 And you could create a drunk neural network :)
