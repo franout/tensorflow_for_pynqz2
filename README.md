@@ -1,7 +1,9 @@
 # Tensorflow 2.1 for Pynq Z2 ( zynq 7000 xilinx SoC )
 The wheel has been produced cross compiling with different compiler's flags using the script provided by tensorflow for building it for rasberry since the official binaries does not work on the board.
 
-Below the part which i modified:
+The compilation chain used is the official one for the Rasberry 
+
+Below the part which i modified for the entire tensorflow ( wrt to tensorflow repository ./tensorflow/tools/ci_build/pi/build_raspberry_pi.sh ) :
 ```bash
   PI_COPTS="--copt=-march=armv7-a --copt=-mfpu=vfpv3-d16
   --copt=-mfloat-abi=hard 
@@ -21,6 +23,33 @@ cat /proc/cpuinfo
 ```
 and modify the copt accordingly.
 
+Below the part to modify for tensorflow lite ( wrt to tensorlfow repository ./tensorflow/lite/tools/make/targets/rpi_makefile.rpi):
+```bash
+ CXXFLAGS += \
+                        -march=armv7-a \
+      -mfpu=vfpv3-d16 \
+      -mfloat-abi=hard \
+      -funsafe-math-optimizations \
+      -ftree-vectorize \
+      -fPIC
+
+    CFLAGS += \
+      -march=armv7-a \
+      -mfpu=vfpv3-d16 \
+      -mfloat-abi=hard \
+      -funsafe-math-optimizations \
+      -ftree-vectorize \
+      -fPIC
+```
+
+Then:
+```bash
+ sudo apt install swig libjpeg-dev zlib1g-dev python3-dev python3-numpy
+ ./tensorflow/lite/tools/make/build_rpi_lib.sh
+ cd tensorflow/lite/tools/pip_package/
+ make BASE_IMAGE=debian:buster PYTHON=python3 TENSORFLOW_TARGET=rpi docker-build # for python3.7
+ make BASE_IMAGE=debian:stretch PYTHON=python3 TENSORFLOW_TARGET=rpi docker-build # for python3.5
+```
 
 
 ## Set up Host and Build
@@ -40,7 +69,7 @@ For installing the wheel, just copy it on the sd card and in the terminal write:
 ```bash
 sudo pip.5 install ./tensorflow-2.1.0-cp35-none-linux_armv7l.whl
 ```
-It will also download and install all the depedacies, some of them have to be compiled on the field (such as scipy and h5py). It will take a while, go out and get drunk, hopefully when you will be back it should have finished.
+It will also download and install all the dependancies, some of them have to be compiled on the field (such as scipy and h5py). It will take a while, go out and get drunk, hopefully when you will be back it should have finished.
 And you could create a drunk neural network :)
 
 
